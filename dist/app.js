@@ -1,0 +1,43 @@
+"use strict";
+// const x: string = "Hello world";
+Object.defineProperty(exports, "__esModule", { value: true });
+// const cars: Array<string> = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"];
+// let text = "";
+// for (let i = 0; i < cars.length; i++) {
+// text = cars[i];
+// console.log(text); 
+// };
+const express = require("express");
+const app = express();
+const http = require("http");
+const cors = require("cors");
+const { Server } = require("socket.io");
+app.use(cors());
+// import databasefire from './firebase'
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: "https://0ca0-153-150-176-69.ngrok-free.app",
+        methods: ["GET", "POST"],
+    },
+});
+io.listen(3000, () => {
+    console.log('Server is running on port 8000');
+});
+// const [messageList2, setMessagelist2] = useState([]);
+var k = 0;
+io.on("connection", (socket) => {
+    console.log(`CONNECTED`);
+    socket.on("send_message", (data) => {
+        console.log("send　message ", k);
+        data["message"] = data["message"] + k;
+        io.emit("receive_message", data);
+        k++;
+    });
+    socket.on("disconnect", () => {
+        console.log("DISCONNECT");
+    });
+});
+server.listen(3001, () => {
+    console.log("SERVER RUNNING");
+});
