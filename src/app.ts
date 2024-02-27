@@ -24,13 +24,13 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-      origin: "https://0ca0-153-150-176-69.ngrok-free.app",
+      origin: "http://localhost:3000",
       methods: ["GET", "POST"],
     },
   });
 
 
-io.listen(3000, () => {
+io.listen(8000, () => {
   console.log('Server is running on port 8000');
 });
 
