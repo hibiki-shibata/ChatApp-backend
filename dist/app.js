@@ -21,7 +21,7 @@ const io = new Server(server, {
         methods: ["GET", "POST"],
     },
 });
-io.listen(8000, () => {
+io.listen(4000, () => {
     console.log('Server is running on port 8000');
 });
 // const [messageList2, setMessagelist2] = useState([]);
